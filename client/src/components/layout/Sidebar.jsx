@@ -12,6 +12,7 @@ import {
   FaDeezer,
   FaUserAlt,
   FaTrash,
+  FaBusinessTime,
 } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
@@ -65,6 +66,11 @@ const userLinks = [
     label: "Leaves",
     link: "leave",
     icon: <FaCalendarAlt />,
+  },
+  {
+    label: "Attendance",
+    link: "attendance",
+    icon: <FaBusinessTime />,
   },
   {
     label: "Project",

@@ -5,7 +5,8 @@ import  express from "express";
 import { errorHandler, routeNotFound } from "./middlewares/errorMiddlewaves.js";
 import routes from "./routes/index.js";
 import morgan from "morgan";
-import chalk from "chalk"; // color for connection name
+import chalk from "chalk";
+import attendanceRoutes from "./routes/attendanceRoutes.js";
 
 import leaveRoutes from "./routes/leaveRoute.js";
 
@@ -40,6 +41,6 @@ app.use(routeNotFound);
 app.use(errorHandler);
 
 app.use("/api/leave", leaveRoutes);
-
+app.use("/api", attendanceRoutes);
 
 app.listen(PORT, () => console.log((chalk.green.bold.bgCyan)`Server listening on ${PORT}`));
