@@ -13,6 +13,7 @@ import {
   FaUserAlt,
   FaTrash,
   FaBusinessTime,
+  FaUsersCog,
 } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
@@ -94,6 +95,11 @@ const managerLinks = [
     label: "Leave request",
     link: "request-messages",
     icon: <FaCalendarAlt />,
+  },
+  {
+    label: "Records",
+    link: "attendance-records",
+    icon: <FaUsersCog />,
   },
 ];
 

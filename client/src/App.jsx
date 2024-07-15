@@ -26,6 +26,7 @@ import AddProject from "./components/project/AddProject";
 import AddTask from "./components/task/AddTask";
 import DeletedRecords from "./pages/DeletedRecords";
 import Attendance from "./pages/Attendance";
+import AttendanceRecords from "./pages/Manager/AttendanceRecords";
 
 function Layout() {
   const { user } = useSelector((state) => state.auth);
@@ -127,6 +128,7 @@ function App() {
           <Route path="/task/:id" element={<TaskDetails />} />
           <Route path="/request-messages" element={<RequestMessages />} />
           <Route path="/attendance" element={<Attendance />} />
+          <Route path="/attendance-records" element={<AttendanceRecords />} />
 
           <Route path="*" element={<ErrorPage />} />
         </Route>
