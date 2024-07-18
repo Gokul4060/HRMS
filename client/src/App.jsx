@@ -129,7 +129,8 @@ function App() {
           <Route path="/request-messages" element={<RequestMessages />} />
           <Route path="/attendance" element={<Attendance />} />
           <Route path="/attendance-records" element={<AttendanceRecords />} />
-
+          <Route path="/project" element={<Demo />} />
+          <Route path="/tab1" element={<Tab1 />} />
           <Route path="*" element={<ErrorPage />} />
         </Route>
 
