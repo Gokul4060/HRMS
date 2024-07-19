@@ -1,4 +1,3 @@
-
 import { apiSlice } from "../apiSlice";
 
 const TASKS_URL = "/task";
@@ -78,16 +77,26 @@ export const taskApiSlice = apiSlice.injectEndpoints({
         credentials: "include",
       }),
     }),
+
+    getSingleTask: builder.query({
+      query: (id) => ({
+        url: `${TASKS_URL}/${id}`,
+        method: "GET",
+        credentials: "include",
+      }),
+    }),
   }),
 });
 
-export const { useGetDashboardStatsQuery,
-               useGetAllTaskQuery,
-               useCreateTaskMutation,
-               useDuplicateTaskMutation,
-               useUpdateTaskMutation,
-               useTrashTaskMutation,
-               useCreateSubTaskMutation,
-                usePostTaskActivityMutation,
-               useDeleteRestoreTaskMutation,
-             } = taskApiSlice;
+export const {
+  useGetDashboardStatsQuery,
+  useGetAllTaskQuery,
+  useCreateTaskMutation,
+  useDuplicateTaskMutation,
+  useUpdateTaskMutation,
+  useTrashTaskMutation,
+  useCreateSubTaskMutation,
+  usePostTaskActivityMutation,
+  useDeleteRestoreTaskMutation,
+  useGetSingleTaskQuery,
+} = taskApiSlice;

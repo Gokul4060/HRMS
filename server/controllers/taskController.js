@@ -5,19 +5,13 @@ import User from "../models/user.js";
 export const createTask = async (req, res) => {
   try {
     const { userId } = req.user;
-
-    const { title, team, stage, date, priority, assets } = req.body;
+    const { title, team, stage, priority, assets, startDate, endDate } =
+      req.body;
 
     let text = "New task has been assigned to you";
     if (team?.length > 1) {
       text = text + ` and ${team?.length - 1} others.`;
     }
-
-    text =
-      text +
-      ` The task priority is set a ${priority} priority, so check and act accordingly. The task date is ${new Date(
-        date
-      ).toDateString()}. Thank you!!!`;
 
     const activity = {
       type: "assigned",
@@ -29,7 +23,8 @@ export const createTask = async (req, res) => {
       title,
       team,
       stage: stage.toLowerCase(),
-      date,
+      startDate,
+      endDate,
       priority: priority.toLowerCase(),
       assets,
       activities: activity,
@@ -54,22 +49,16 @@ export const duplicateTask = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const task = await Task.findById(id);
+    const task = await Task.findById(id).lean();
 
     const newTask = await Task.create({
       ...task,
       title: task.title + " - Duplicate",
+      _id: mongoose.Types.ObjectId(),
+      isNew: true,
     });
 
-    newTask.team = task.team;
-    newTask.subTasks = task.subTasks;
-    newTask.assets = task.assets;
-    newTask.priority = task.priority;
-    newTask.stage = task.stage;
-
-    await newTask.save();
-
-    //alert users of the task
+    // alert users of the task
     let text = "New task has been assigned to you";
     if (task.team.length > 1) {
       text = text + ` and ${task.team.length - 1} others.`;
@@ -77,9 +66,13 @@ export const duplicateTask = async (req, res) => {
 
     text =
       text +
-      ` The task priority is set a ${
+      ` The task priority is set at ${
         task.priority
-      } priority, so check and act accordingly. The task date is ${task.date.toDateString()}. Thank you!!!`;
+      } priority, so check and act accordingly. The task starts on ${new Date(
+        task.startDate
+      ).toDateString()} and ends on ${new Date(
+        task.endDate
+      ).toDateString()}. Thank you!!!`;
 
     await Notice.create({
       team: task.team,
@@ -253,14 +246,13 @@ export const getTask = async (req, res) => {
 export const createSubTask = async (req, res) => {
   try {
     const { title, tag, date } = req.body;
-   
+
     const { id } = req.params;
 
     const newSubTask = {
       title,
       date,
       tag,
-      
     };
 
     const task = await Task.findById(id);
@@ -281,22 +273,24 @@ export const createSubTask = async (req, res) => {
 export const updateTask = async (req, res) => {
   try {
     const { id } = req.params;
-    const { title, date, team, stage, priority, assets } = req.body;
+    const { title, team, stage, priority, assets, startDate, endDate } =
+      req.body;
 
     const task = await Task.findById(id);
 
-    task.title = title;
-    task.date = date;
-    task.priority = priority.toLowerCase();
-    task.assets = assets;
-    task.stage = stage.toLowerCase();
-    task.team = team;
+    task.title = title || task.title;
+    task.team = team || task.team;
+    task.stage = stage || task.stage;
+    task.priority = priority || task.priority;
+    task.assets = assets || task.assets;
+    task.startDate = startDate || task.startDate;
+    task.endDate = endDate || task.endDate;
 
     await task.save();
 
     res
       .status(200)
-      .json({ status: true, message: "Task duplicated successfully." });
+      .json({ status: true, message: "Task updated successfully." });
   } catch (error) {
     console.log(error);
     return res.status(400).json({ status: false, message: error.message });

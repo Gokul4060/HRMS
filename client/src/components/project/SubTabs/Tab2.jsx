@@ -1,6 +1,5 @@
 import React from "react";
 
-
 const Tab2 = () => {
   return (
     <div className="font-sans bg-white p-4 rounded-2xl shadow-lg h-screen">
@@ -63,29 +62,17 @@ const Tab2 = () => {
           </div>
         </div>
         <div className="mt-6 overflow-hidden rounded-xl border shadow ">
-          <table className="min-w-full  rounded-lg  ">
-            <thead className="hidden lg:table-header-group bg-green-400 ">
+          <table className="min-w-full rounded-lg">
+            <thead className="hidden lg:table-header-group bg-green-400">
               <tr>
                 <th className="py-4 text-sm font-medium text-white sm:px-6">
-                  Code
+                  Title
                 </th>
                 <th className="py-4 text-sm font-medium text-white sm:px-6">
-                  Name
+                  Task date
                 </th>
                 <th className="py-4 text-sm font-medium text-white sm:px-6">
-                  Project Title
-                </th>
-                <th className="py-4 text-sm font-medium text-white sm:px-6">
-                  Created At
-                </th>
-                <th className="py-4 text-sm font-medium text-white sm:px-6">
-                  Start date
-                </th>
-                <th className="py-4 text-sm font-medium text-white sm:px-6">
-                  End date
-                </th>
-                <th className="py-4 text-sm font-medium text-white sm:px-6">
-                  Status
+                  Tag
                 </th>
                 <th className="py-4 text-sm font-medium text-white sm:px-6">
                   Action
@@ -93,39 +80,27 @@ const Tab2 = () => {
               </tr>
             </thead>
             <tbody className="lg:border-gray-300 border-separate">
-              <tr>
-                <td className="py-4 text-sm font-bold text-gray-900 sm:px-6">
-                  001
-                </td>
-                <td className="hidden py-4 text-sm font-normal text-gray-500 sm:px-6 lg:table-cell">
-                  Berlin
-                </td>
-                <td className="hidden py-4 text-sm font-normal text-gray-500 sm:px-6 lg:table-cell">
-                  HRMS
-                </td>
-                <td className="hidden py-4 text-sm font-normal text-gray-500 sm:px-6 lg:table-cell">
-                  17-07-2024
-                </td>
-                <td className="hidden py-4 text-sm font-normal text-gray-500 sm:px-6 lg:table-cell">
-                  20-07-2024
-                </td>
-                <td className="hidden py-4 text-sm font-normal text-gray-500 sm:px-6 lg:table-cell">
-                  28-07-2024
-                </td>
-                <td className="hidden py-4 text-sm font-normal text-gray-500 sm:px-6 lg:table-cell">
-                  <div className="inline-flex items-center rounded-full bg-green-200 py-2 px-3 text-xs text-white">
-                    Complete
-                  </div>
-                </td>
-                <td className="hidden py-4 text-sm font-normal text-gray-500 sm:px-6 lg:table-cell">
-                  <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-4 rounded">
-                    Edit
-                  </button>
-                  <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-4 rounded ml-2">
-                    Delete
-                  </button>
-                </td>
-              </tr>
+          
+                <tr >
+                  <td className="py-4 text-sm font-bold text-gray-900 sm:px-6">
+                 
+                  </td>
+                  <td className="hidden py-4 text-sm font-normal text-gray-500 sm:px-6 lg:table-cell">
+                   
+                  </td>
+                  <td className="hidden py-4 text-sm font-normal text-gray-500 sm:px-6 lg:table-cell">
+               
+                  </td>
+                  <td className="hidden py-4 text-sm font-normal text-gray-500 sm:px-6 lg:table-cell">
+                    <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-4 rounded">
+                      Edit
+                    </button>
+                    <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-4 rounded ml-2">
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+      
             </tbody>
           </table>
         </div>

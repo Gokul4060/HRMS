@@ -3,7 +3,8 @@ import mongoose, { Schema } from "mongoose";
 const taskSchema = new Schema(
   {
     title: { type: String, required: true },
-    date: { type: Date, default: new Date() },
+    startDate: { type: Date, required: true },
+    endDate: { type: Date, required: true },
     priority: {
       type: String,
       default: "normal",
@@ -12,8 +13,9 @@ const taskSchema = new Schema(
     stage: {
       type: String,
       default: "todo",
-      enum: ["todo", "in progress", "completed"],
+      enum: ["todo", "progress", "completed"],
     },
+
     activities: [
       {
         type: {
@@ -33,7 +35,6 @@ const taskSchema = new Schema(
         by: { type: Schema.Types.ObjectId, ref: "User" },
       },
     ],
-
     subTasks: [
       {
         title: String,

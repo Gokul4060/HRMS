@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { BiMessageAltDetail } from "react-icons/bi";
-import { MdAttachFile, MdKeyboardArrowDown, MdKeyboardArrowUp, MdKeyboardDoubleArrowUp } from "react-icons/md";
+import {
+  MdAttachFile,
+  MdKeyboardArrowDown,
+  MdKeyboardArrowUp,
+  MdKeyboardDoubleArrowUp,
+} from "react-icons/md";
 import { toast } from "sonner";
 import TaskDialog from "../../task/TaskDialog";
 import { BGS, PRIOTITYSTYELS, TASK_TYPE, formatDate } from "../../../utils";
@@ -10,7 +15,10 @@ import UserInfo from "../../UserInfo";
 import Button from "../../Tools/Button";
 import ConfirmatioDialog from "../../Tools/Dialogs";
 import { useSelector } from "react-redux";
-import { useTrashTaskMutation, useGetAllTaskQuery } from "../../../redux/slices/api/taskApiSlice";
+import {
+  useTrashTaskMutation,
+  useGetAllTaskQuery,
+} from "../../../redux/slices/api/taskApiSlice";
 import { useNavigate, useParams } from "react-router-dom";
 import { FaRegPenToSquare, FaTrash } from "react-icons/fa6";
 
@@ -76,13 +84,13 @@ const Tab1 = ({ tasks, task }) => {
         <th className="py-2 px-4">Team</th>
         <th className="py-2 px-4">Status</th>
         <th className="py-2 px-4">Action</th>
-        <th className="py-2 px-4">option</th>
+        <th className="py-2 px-4">Option</th>
       </tr>
     </thead>
   );
 
   const TableRow = ({ task }) => (
-    <tr className="border-b border-gray-200 hover:bg-gray-100">
+    <tr className="hover:bg-gray-100">
       <td className="py-2 px-4">
         <div className="flex items-center">
           <div
@@ -140,7 +148,16 @@ const Tab1 = ({ tasks, task }) => {
         </div>
       </td>
       <td className="py-2 px-4">
-        <span className="text-sm text-gray-600 bg-yellow-200 py-1 px-2 rounded-md">
+        <span
+          className={clsx(
+            "border-b border-gray-200 hover:bg-gray-100 p-2 rounded-2xl",
+            {
+              "bg-yellow-100": task.stage === "progress",
+              "bg-green-100": task.stage === "completed",
+              "bg-blue-100": task.stage === "todo",
+            }
+          )}
+        >
           {task?.stage}
         </span>
       </td>
@@ -245,5 +262,3 @@ const Tab1 = ({ tasks, task }) => {
 };
 
 export default Tab1;
-
-

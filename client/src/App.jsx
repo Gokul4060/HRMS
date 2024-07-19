@@ -18,6 +18,7 @@ import Payroll from "./pages/payRoll";
 import ErrorPage from "./pages/ErrorPage";
 import Profile from "./pages/profile";
 import Approvel from "./pages/Approvel";
+import Demo from "./pages/demo";
 import Tasks from "./pages/Tasks";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -25,8 +26,9 @@ import RequestMessages from "./pages/Manager/RequestMessages";
 import AddProject from "./components/project/AddProject";
 import AddTask from "./components/task/AddTask";
 import DeletedRecords from "./pages/DeletedRecords";
-import Attendance from "./pages/Attendance";
-import AttendanceRecords from "./pages/Manager/AttendanceRecords";
+import Tab1 from "./components/project/SubTabs/Tab1";
+import Tab2 from "./components/project/SubTabs/Tab2";
+
 
 function Layout() {
   const { user } = useSelector((state) => state.auth);
@@ -126,11 +128,13 @@ function App() {
           <Route path="/addTask" element={<AddTask />} />
           <Route path="/trash" element={<DeletedRecords />} />
           <Route path="/task/:id" element={<TaskDetails />} />
-          <Route path="/request-messages" element={<RequestMessages />} />
-          <Route path="/attendance" element={<Attendance />} />
-          <Route path="/attendance-records" element={<AttendanceRecords />} />
-          <Route path="/project" element={<Demo />} />
+          <Route path="/demo" element={<Demo />} />
           <Route path="/tab1" element={<Tab1 />} />
+        
+          <Route path="/tab2" element={<Tab2 />} />
+
+          <Route path="/request-messages" element={<RequestMessages />} />
+
           <Route path="*" element={<ErrorPage />} />
         </Route>
 
