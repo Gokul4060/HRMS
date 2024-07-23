@@ -28,6 +28,7 @@ import AddTask from "./components/task/AddTask";
 import DeletedRecords from "./pages/DeletedRecords";
 import Tab1 from "./components/project/SubTabs/Tab1";
 import Tab2 from "./components/project/SubTabs/Tab2";
+import Attendance from "./pages/Attendance";
 
 
 function Layout() {
@@ -130,7 +131,8 @@ function App() {
           <Route path="/task/:id" element={<TaskDetails />} />
           <Route path="/demo" element={<Demo />} />
           <Route path="/tab1" element={<Tab1 />} />
-        
+          <Route path="/attendance" element={<Attendance />} />
+
           <Route path="/tab2" element={<Tab2 />} />
 
           <Route path="/request-messages" element={<RequestMessages />} />
