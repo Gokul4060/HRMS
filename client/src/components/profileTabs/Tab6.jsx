@@ -7,15 +7,17 @@ const Tab6 = ({ control, register, errors, prevTab, setValue }) => {
   const { profile } = useSelector((state) => state.profile);
 
   useEffect(() => {
-    if (profile) {
+    if (profile && profile.identityInformation) {
       const setFormValues = (obj, prefix = "") => {
-        Object.keys(obj).forEach((key) => {
-          if (typeof obj[key] === "object" && obj[key] !== null) {
-            setFormValues(obj[key], `${prefix}${key}.`);
-          } else {
-            setValue(`${prefix}${key}`, obj[key] || "");
-          }
-        });
+        if (obj) {
+          Object.keys(obj).forEach((key) => {
+            if (typeof obj[key] === "object" && obj[key] !== null) {
+              setFormValues(obj[key], `${prefix}${key}.`);
+            } else {
+              setValue(`${prefix}${key}`, obj[key] || "");
+            }
+          });
+        }
       };
 
       setFormValues(profile.identityInformation, "identityInformation.");

@@ -5,8 +5,9 @@ import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
 
 const Tab2 = ({ control, register, errors, nextTab, prevTab, setValue }) => {
   const { profile } = useSelector((state) => state.profile);
+
   useEffect(() => {
-    if (profile) {
+    if (profile && profile.workInformation) {
       const setFormValues = (obj, prefix = "") => {
         Object.keys(obj).forEach((key) => {
           if (typeof obj[key] === "object" && obj[key] !== null) {

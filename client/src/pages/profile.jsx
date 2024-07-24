@@ -51,6 +51,7 @@ const ProfilePage = () => {
       setFormValues(data);
     }
   }, [data, dispatch, setValue]);
+
   const handleOnSubmit = async (formData) => {
     try {
       let result;
@@ -72,7 +73,7 @@ const ProfilePage = () => {
           basicInfoFields.includes(field)
         );
         if (updatedBasicInfoFields.length > 0) {
-          message = `${user?.name}.'s Basic info  updated successfully`;
+          message = `${user?.name}.'s Basic info updated successfully`;
         } else {
           message = "No changes were made.";
         }
@@ -108,19 +109,19 @@ const ProfilePage = () => {
   }
 
   return (
-    <div className="w-full md:px-1 px-0 mb-6 p-5">
-      <form onSubmit={handleSubmit(handleOnSubmit)} className="">
-        <div className="bg-white rounded-2xl">
-          <div className="mt-2 grid gap-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2">
-            <div className="bg-white px-4 pt-8 pb-10 rounded-2xl">
+    <div className="w-full md:px-4 px-2 mb-6 p-5">
+      <form onSubmit={handleSubmit(handleOnSubmit)} className="space-y-8">
+        <div className="bg-white rounded-2xl shadow-lg p-6">
+          <div className="flex flex-col md:flex-row gap-6">
+            <div className="flex flex-col items-center w-full md:w-1/3 bg-gray-100 p-6 rounded-2xl">
               <div
-                className="relative mx-auto w-36 h-36 rounded-full"
+                className="relative w-36 h-36 rounded-full cursor-pointer mb-4"
                 onClick={handleProfilePictureClick}
               >
                 <img
                   src={profileImage}
                   alt="Profile"
-                  className="mx-auto h-28 w-28 rounded-full"
+                  className="w-full h-full rounded-full object-cover"
                 />
                 <input
                   type="file"
@@ -133,29 +134,26 @@ const ProfilePage = () => {
               <h1 className="my-1 text-center text-xl font-bold leading-8 text-gray-900">
                 {user?.name}
               </h1>
-              <h3 className="font-lg text-semibold text-center leading-6 text-gray-600">
-                Role: {user?.role}
-              </h3>
               <div className="">
-                <ul className="mt-3 divide-y bg-gray-100 py-2 px-3 text-gray-600 shadow-sm hover:text-gray-700 hover:shadow rounded-lg">
+                <ul className="mt-3 divide-y w-48 p-10 bg-white py-2 px-3 text-gray-600 shadow-sm hover:text-gray-700 hover:shadow rounded-lg">
                   <li className="flex items-center py-3 text-sm">
-                    <span>Status</span>
+                    <span>Status:</span>
                     <span className="ml-auto">
-                      <span className="rounded-full bg-green-200 py-1 px-2 text-xs font-medium text-green-700">
+                      <span className="rounded-full bg-green-200 py-1 px-2 text-xs font-medium text-green-700 ">
                         {user?.isActive ? "Active" : "Disabled"}
                       </span>
                     </span>
                   </li>
-                  <li className="flex items-center py-3 text-sm">
-                    <span>Joined On</span>
-                    <span className="ml-auto">June 8, 2024</span>
+                  <li className="flex justify-between items-center text-sm text-gray-600">
+                    <span>Role:</span>
+                    <span className="ml-auto">{user?.role}</span>
                   </li>
                 </ul>
               </div>
             </div>
-            <div className="bg-white px-4 pt-8 pb-10 rounded-2xl">
-              <h1>Basic Information</h1>
-              <div className="mt-4 grid gap-6 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2">
+            <div className="w-full md:w-2/3">
+              <h1 className="text-2xl font-bold mb-4">Basic Information</h1>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <Textbox
                   placeholder={user?.name}
                   type="text"
@@ -212,7 +210,7 @@ const ProfilePage = () => {
             </div>
           </div>
         </div>
-        <div className="">
+        <div className="bg-white rounded-2xl shadow-lg p-6 ">
           <Tabs
             control={control}
             register={register}
@@ -220,14 +218,14 @@ const ProfilePage = () => {
             setValue={setValue}
           />
           {isSubmitting || isUpdating ? (
-            <div className="py-5">
+            <div className="flex justify-center py-5">
               <Loading />
             </div>
           ) : (
-            <div className="py-3 mt-2 text-center sm:flex sm:flex-row-reverse">
+            <div className="flex justify-end mt-4">
               <Button
                 type="submit"
-                className="bg-customplam px-8 text-sm font-semibold text-white hover:bg-green-700 sm:w-auto rounded-2xl"
+                className="bg-blue-600 text-white py-2 px-6 rounded-2xl hover:bg-blue-700 transition duration-300"
                 label="Submit"
               />
             </div>
