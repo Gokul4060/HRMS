@@ -14,19 +14,25 @@ import {
 } from "../../redux/slices/api/taskApiSlice";
 import { toast } from "sonner";
 
+// Assuming you have access to the user object. Replace this with your actual user state.
+const user = { isAdmin: true }; // Example user object
+
 const TaskDialog = ({ task }) => {
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
 
-  const navigate = useNavigate();
   const [deleteTask] = useTrashTaskMutation();
   const [duplicateTask] = useDuplicateTaskMutation();
+
+  const handleCreateTask = () => {
+    navigate("/addTask", { state: { id: task._id } });
+  };
 
   const duplicateHandler = async () => {
     try {
       const res = await duplicateTask(task._id).unwrap();
-
       toast.success(res?.message);
 
       setTimeout(() => {
@@ -42,24 +48,25 @@ const TaskDialog = ({ task }) => {
   const deleteClicks = () => {
     setOpenDialog(true);
   };
-const deleteHandler = async () => {
-  try {
-    const res = await deleteTask({
-      id: task._id,
-      isTrashed: "trash",
-    }).unwrap();
 
-    toast.success(res?.message);
+  const deleteHandler = async () => {
+    try {
+      const res = await deleteTask({
+        id: task._id,
+        isTrashed: "trash",
+      }).unwrap();
 
-    setTimeout(() => {
-      setOpenDialog(false);
-      window.location.reload();
-    }, 500);
-  } catch (err) {
-    console.log(err);
-    toast.error(err?.data?.message || err.error);
-  }
-};
+      toast.success(res?.message);
+
+      setTimeout(() => {
+        setOpenDialog(false);
+        window.location.reload();
+      }, 500);
+    } catch (err) {
+      console.log(err);
+      toast.error(err?.data?.message || err.error);
+    }
+  };
 
   const items = [
     {
@@ -72,17 +79,19 @@ const deleteHandler = async () => {
       icon: <MdOutlineEdit className="mr-2 h-5 w-5" aria-hidden="true" />,
       onClick: () => setOpenEdit(true),
     },
-    {
-      label: "Add Sub-Task",
-      icon: <MdAdd className="mr-2 h-5 w-5" aria-hidden="true" />,
-      onClick: () => setOpen(true),
-    },
+    user.isAdmin
+      ? {
+          label: "Add Task",
+          icon: <MdAdd className="mr-2 h-5 w-5" aria-hidden="true" />,
+          onClick: handleCreateTask,
+        }
+      : null,
     {
       label: "Duplicate",
       icon: <HiDuplicate className="mr-2 h-5 w-5" aria-hidden="true" />,
-      onClick: () => duplicateHandler(),
+      onClick: duplicateHandler,
     },
-  ];
+  ].filter(Boolean);
 
   return (
     <>
@@ -109,7 +118,7 @@ const deleteHandler = async () => {
                       <button
                         onClick={el?.onClick}
                         className={`${
-                          active ? "bg-blue-500 text-white" : "text-gray-900"
+                          active ? "bg-green-500 text-white" : "text-gray-900"
                         } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                       >
                         {el.icon}
@@ -124,9 +133,9 @@ const deleteHandler = async () => {
                 <Menu.Item>
                   {({ active }) => (
                     <button
-                      onClick={() => deleteClicks()}
+                      onClick={deleteClicks}
                       className={`${
-                        active ? "bg-blue-500 text-white" : "text-red-900"
+                        active ? "bg-green-500 text-white" : "text-red-900"
                       } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                     >
                       <RiDeleteBin6Line

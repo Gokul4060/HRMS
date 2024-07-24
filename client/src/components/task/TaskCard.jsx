@@ -47,17 +47,22 @@ const TaskCard = ({ task }) => {
           {user?.isAdmin && <TaskDialog task={task} />}
         </div>
 
-        <>
-          <div className="flex items-center gap-2">
-            <div
-              className={clsx("w-4 h-4 rounded-full", TASK_TYPE[task.stage])}
-            />
-            <h4 className="line-clamp-1 text-black">{task?.title}</h4>
-          </div>
+        <div className="flex items-center gap-2">
+          <div
+            className={clsx("w-4 h-4 rounded-full", TASK_TYPE[task.stage])}
+          />
+          <h4 className="line-clamp-1 text-black">{task?.title}</h4>
+        </div>
+
+        {/* Added columns for Start Date, End Date, and Tag */}
+        <div className="flex flex-col-2 mt-2">
           <span className="text-sm text-gray-600">
-            {formatDate(new Date(task?.date))}
+            Start Date: {formatDate(new Date(task?.startDate))}
           </span>
-        </>
+          <span className="text-sm text-gray-600">
+            End Date: {formatDate(new Date(task?.endDate))}
+          </span>
+        </div>
 
         <div className="w-full border-t border-gray-200 my-2" />
         <div className="flex items-center justify-between mb-2">
@@ -91,33 +96,40 @@ const TaskCard = ({ task }) => {
           </div>
         </div>
 
-        {/* sub tasks */}
         {task?.subTasks?.length > 0 ? (
           <div className="py-4 border-t border-gray-200">
-            <h5 className="text-base line-clamp-1 text-black">
-              {task?.subTasks[0].title}
-            </h5>
-
-            <div className="p-4 space-x-8">
-              <span className="text-sm text-gray-600">
-                {formatDate(new Date(task?.subTasks[0]?.date))}
-              </span>
-              <span className="bg-green-600/10 px-3 py-1 rounded-full text-green-700 font-medium">
-                {task?.subTasks[0].tag}
-              </span>
-            </div>
+            {task.subTasks.map((subtask, index) => (
+              <div key={index} className="py-2">
+                <h5 className="text-base text-black">{subtask.title}</h5>
+                <div className="flex flex-col-2 gap-4 py-2">
+                  <div className="flex items-center gap-2 text-sm text-gray-600">
+                    <span className="font-medium">Start:</span>
+                    <span>{formatDate(new Date(subtask.startDate))}</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm text-gray-600">
+                    <span className="font-medium">End:</span>
+                    <span>{formatDate(new Date(subtask.endDate))}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="bg-green-600/10 px-3 py-1 rounded-full text-green-700 font-medium">
+                      {subtask.tag}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         ) : (
           <div className="py-4 border-t border-gray-200">
-            <span className="text-gray-500">No Task</span>
+            <span className="text-gray-500">No Subtasks</span>
           </div>
         )}
 
         <div className="w-full pb-2">
           <button
             onClick={handleCreateTask}
-            disabled={user.isAdmin ? false : true}
-            className="w-full flex gap-4 items-center text-sm text-gray-500 font-semibold disabled:cursor-not-allowed disabled::text-gray-300"
+            disabled={!user.isAdmin}
+            className="w-full flex gap-4 items-center text-sm text-gray-500 font-semibold disabled:cursor-not-allowed disabled:text-gray-300"
           >
             <IoMdAdd className="text-lg" />
             <span>ADD TASK</span>

@@ -245,20 +245,28 @@ export const getTask = async (req, res) => {
 
 export const createSubTask = async (req, res) => {
   try {
-    const { title, tag, date } = req.body;
-
+    const { title, tag, startDate, endDate } = req.body;
     const { id } = req.params;
 
+    // Find the task by id
+    const task = await Task.findById(id);
+
+    // Check if task exists
+    if (!task) {
+      return res
+        .status(404)
+        .json({ status: false, message: "Project not found." });
+    }
+
+    // Create and add the subtask
     const newSubTask = {
       title,
-      date,
+      startDate,
+      endDate,
       tag,
     };
 
-    const task = await Task.findById(id);
-
     task.subTasks.push(newSubTask);
-
     await task.save();
 
     res
@@ -269,7 +277,6 @@ export const createSubTask = async (req, res) => {
     return res.status(400).json({ status: false, message: error.message });
   }
 };
-
 export const updateTask = async (req, res) => {
   try {
     const { id } = req.params;

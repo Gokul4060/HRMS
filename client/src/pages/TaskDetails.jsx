@@ -1,6 +1,8 @@
-import clsx from "clsx";
-import moment from "moment";
 import React, { useState } from "react";
+import { useParams } from "react-router-dom";
+import moment from "moment";
+import DatePicker from "react-datepicker";
+import { toast } from "sonner";
 import { FaBug, FaTasks, FaThumbsUp, FaUser } from "react-icons/fa";
 import { GrInProgress } from "react-icons/gr";
 import {
@@ -11,18 +13,17 @@ import {
   MdOutlineMessage,
   MdTaskAlt,
 } from "react-icons/md";
-import { RxActivityLog } from "react-icons/rx";
-import { useParams } from "react-router-dom";
-import { toast } from "sonner";
-
-import Tabs from "../components/layout/Tabs";
 import { PRIOTITYSTYELS, TASK_TYPE } from "../utils";
+import { RxActivityLog } from "react-icons/rx";
+import Tabs from "../components/layout/Tabs";
 import Loading from "../components/Tools/Loader";
+import clsx from "clsx";
 import Button from "../components/Tools/Button";
 import {
   useGetSingleTaskQuery,
   usePostTaskActivityMutation,
 } from "../redux/slices/api/taskApiSlice";
+import "react-datepicker/dist/react-datepicker.css";
 
 const assets = [
   "https://images.pexels.com/photos/2418664/pexels-photo-2418664.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
@@ -163,7 +164,7 @@ const TaskDetails = () => {
                 </div>
 
                 <div className="space-y-4 py-6">
-                  <p className="text-gray-600 font-semibold test-sm">
+                  <p className="text-gray-600 font-semibold text-sm">
                     Project TEAM
                   </p>
                   <div className="space-y-3">
@@ -195,23 +196,32 @@ const TaskDetails = () => {
                   <p className="text-gray-500 font-semibold text-sm">TASKS</p>
                   <div className="space-y-8">
                     {task?.subTasks?.map((el, index) => (
-                      <div key={index} className="flex gap-3">
-                        <div className="w-10 h-10 flex items-center justify-center rounded-full bg-violet-50-200">
-                          <MdTaskAlt className="text-violet-600" size={26} />
-                        </div>
-
-                        <div className="space-y-1">
-                          <div className="flex gap-2 items-center">
-                            <span className="text-sm text-gray-500">
-                              {new Date(el?.date).toDateString()}
-                            </span>
-
-                            <span className="px-2 py-0.5 text-center text-sm rounded-full bg-violet-100 text-violet-700 font-semibold">
-                              {el?.tag}
-                            </span>
+                      <div
+                        key={index}
+                        className="flex flex-col gap-2 border-t border-gray-200 pt-4"
+                      >
+                        <div className="flex gap-3 items-start">
+                          <div className="w-10 h-10 flex items-center justify-center rounded-full bg-violet-50-200">
+                            <MdTaskAlt className="text-violet-600" size={26} />
                           </div>
 
-                          <p className="text-gray-700">{el?.title}</p>
+                          <div className="space-y-1">
+                            <div className="flex-shrink-0">
+                              <span className="px-2 py-0.5 text-center text-sm rounded-full bg-violet-100 text-violet-700 font-semibold">
+                                {el?.tag}
+                              </span>
+                            </div>
+                            <p className="text-gray-700">{el?.title}</p>
+                            <div className="text-sm text-gray-600">
+                              <span>
+                                Start : {new Date(el?.startDate).toDateString()}
+                              </span>
+                              <br />
+                              <span>
+                                End : {new Date(el?.endDate).toDateString()}
+                              </span>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     ))}
@@ -252,6 +262,7 @@ const TaskDetails = () => {
 const Activities = ({ activity, id, refetch }) => {
   const [selected, setSelected] = useState(act_types[0]);
   const [text, setText] = useState("");
+  const [date, setDate] = useState(new Date());
 
   const [postActivity, { isLoading }] = usePostTaskActivityMutation();
 
@@ -260,6 +271,7 @@ const Activities = ({ activity, id, refetch }) => {
       const activityData = {
         type: selected?.toLowerCase(),
         activity: text,
+        date: moment(date).toISOString(),
       };
       const result = await postActivity({
         data: activityData,
@@ -291,7 +303,11 @@ const Activities = ({ activity, id, refetch }) => {
           <p className="font-semibold">{item?.by?.name}</p>
           <div className="text-gray-500 space-y-2">
             <span className="capitalize">{item?.type}</span>
-            <span className="text-sm">{moment(item?.date).fromNow()}</span>
+
+            <span className="text-sm">
+              Activity Date:{" "}
+              {moment(item?.date).format("MMMM Do YYYY, h:mm:ss a")}
+            </span>
           </div>
           <div className="text-gray-700">{item?.activity}</div>
         </div>
@@ -326,11 +342,12 @@ const Activities = ({ activity, id, refetch }) => {
                 type="checkbox"
                 className="w-4 h-4"
                 checked={selected === item ? true : false}
-                onChange={(e) => setSelected(item)}
+                onChange={() => setSelected(item)}
               />
               <p>{item}</p>
             </div>
           ))}
+
           <textarea
             rows={10}
             value={text}
@@ -338,6 +355,7 @@ const Activities = ({ activity, id, refetch }) => {
             placeholder="Type ......"
             className="bg-white w-full mt-10 border border-gray-300 outline-none p-4 rounded-md focus:ring-2 ring-green-500"
           ></textarea>
+
           {isLoading ? (
             <Loading />
           ) : (

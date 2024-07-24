@@ -19,6 +19,7 @@ const AddTask = () => {
   const navigate = useNavigate();
 
   const handleOnSubmit = async (data) => {
+    console.log(data); // Log the form data
     try {
       const res = await addSbTask({ data, id }).unwrap();
       toast.success("Task assigned successfully");
@@ -33,53 +34,62 @@ const AddTask = () => {
 
   return (
     <div className="flex justify-center w-full items-center mt-8 bg-gray-100">
-      <div className="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md">
+      <div className="bg-white p-8 rounded-2xl shadow-lg w-full max-w-4xl">
         <h1 className="text-2xl font-semibold text-center mb-6 text-gray-800">
           Add Task
         </h1>
-        <form onSubmit={handleSubmit(handleOnSubmit)} className="">
-          <div className="mt-2 flex flex-col gap-6">
-            <Textbox
-              placeholder="Sub-Task title"
-              type="text"
-              name="title"
-              label="Title"
-              className="w-full rounded border border-gray-300 p-2"
-              register={register("title", {
-                required: "Title is required!",
-              })}
-              error={errors.title ? errors.title.message : ""}
-            />
-
-            <div className="flex items-center gap-4">
-              <Textbox
-                placeholder="Date"
-                type="date"
-                name="date"
-                label="Task Date"
-                className="w-full rounded border border-gray-300 p-2"
-                register={register("date", {
-                  required: "Date is required!",
-                })}
-                error={errors.date ? errors.date.message : ""}
-              />
-              <Textbox
-                placeholder="Tag"
-                type="text"
-                name="tag"
-                label="Tag"
-                className="w-full rounded border border-gray-300 p-2"
-                register={register("tag", {
-                  required: "Tag is required!",
-                })}
-                error={errors.tag ? errors.tag.message : ""}
-              />
-            </div>
-          </div>
-          <div className="py-3 mt-6 flex sm:flex-row-reverse gap-4">
+        <form
+          onSubmit={handleSubmit(handleOnSubmit)}
+          className="grid grid-cols-1 md:grid-cols-2 gap-6"
+        >
+          <Textbox
+            placeholder="Task title"
+            type="text"
+            name="title"
+            label="Title"
+            className="w-full rounded border border-gray-300 p-2"
+            register={register("title", {
+              required: "Title is required!",
+            })}
+            error={errors.title ? errors.title.message : ""}
+          />
+          <Textbox
+            placeholder="Tag"
+            type="text"
+            name="tag"
+            label="Tag"
+            className="w-full rounded border border-gray-300 p-2"
+            register={register("tag", {
+              required: "Tag is required!",
+            })}
+            error={errors.tag ? errors.tag.message : ""}
+          />
+          <Textbox
+            placeholder="Start Date"
+            type="date"
+            name="startDate"
+            label="Start Date"
+            className="w-full rounded border border-gray-300 p-2"
+            register={register("startDate", {
+              required: "Start Date is required!",
+            })}
+            error={errors.startDate ? errors.startDate.message : ""}
+          />
+          <Textbox
+            placeholder="End Date"
+            type="date"
+            name="endDate"
+            label="End Date"
+            className="w-full rounded border border-gray-300 p-2"
+            register={register("endDate", {
+              required: "End Date is required!",
+            })}
+            error={errors.endDate ? errors.endDate.message : ""}
+          />
+          <div className="col-span-2 flex justify-end mt-6">
             <Button
               type="submit"
-              className="bg-customplam text-sm font-semibold text-white hover:bg-green-700 sm:ml-3 sm:w-auto rounded-2xl py-2 px-4"
+              className="bg-customplam text-sm font-semibold text-white hover:bg-green-700 rounded-2xl py-2 px-4"
               label="Add Task"
             />
           </div>

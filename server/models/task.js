@@ -29,6 +29,7 @@ const taskSchema = new Schema(
             "completed",
             "commented",
           ],
+          date: { type: Date, required: true },
         },
         activity: String,
         date: { type: Date, default: new Date() },
@@ -37,9 +38,10 @@ const taskSchema = new Schema(
     ],
     subTasks: [
       {
-        title: String,
-        date: Date,
-        tag: String,
+        title: { type: String, required: true },
+        startDate: { type: Date, required: true },
+        endDate: { type: Date, required: true },
+        tag: { type: String },
       },
     ],
     assets: [String],

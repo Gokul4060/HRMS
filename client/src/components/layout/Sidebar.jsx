@@ -12,8 +12,6 @@ import {
   FaDeezer,
   FaUserAlt,
   FaTrash,
-  FaBusinessTime,
-  FaUsersCog,
 } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
@@ -21,11 +19,10 @@ import { setOpenSidebar } from "../../redux/slices/authSlice";
 import clsx from "clsx";
 import logoCapz from "../../assets/logoCapz.png";
 
-
 const adminLinks = [
   {
     label: "Dashboard",
-    link: "dashboard",
+    link: "dash",
     icon: <MdDashboard />,
   },
   {
@@ -34,9 +31,10 @@ const adminLinks = [
     icon: <FaUserAlt />,
   },
 
+
   {
     label: "Project",
-    link: "/demo",
+    link: "task",
     icon: <FaDeezer />,
   },
 
@@ -69,9 +67,9 @@ const userLinks = [
     icon: <FaCalendarAlt />,
   },
   {
-    label: "Attendance",
-    link: "attendance",
-    icon: <FaBusinessTime />,
+    label: "Project",
+    link: "demo",
+    icon: <FaDeezer />,
   },
   {
     label: "Project",
@@ -95,11 +93,6 @@ const managerLinks = [
     label: "Leave request",
     link: "request-messages",
     icon: <FaCalendarAlt />,
-  },
-  {
-    label: "Records",
-    link: "attendance-records",
-    icon: <FaUsersCog />,
   },
 ];
 

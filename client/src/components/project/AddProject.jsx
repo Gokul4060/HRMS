@@ -94,7 +94,7 @@ const Addd = ({ task }) => {
       toast.success("Project successfully created");
 
       setTimeout(() => {
-        navigate("/demo");
+        navigate("/task");
       }, 500);
     } catch (err) {
       console.log("Error creating/updating task:", err);
