@@ -18,6 +18,7 @@ import SelectList from "../Tools/SelectList.jsx";
 import { BiImages } from "react-icons/bi";
 import Button from "../Tools/Button.jsx";
 import Textbox from "../Tools/Textbox.jsx";
+import img from "../../assets/undraw_create_re_57a3.svg";
 
 const LISTS = ["TODO", "PROGRESS", "COMPLETED"];
 const PRIORITY = ["HIGH", "MEDIUM", "NORMAL", "LOW"];
@@ -59,7 +60,6 @@ const Addd = ({ task }) => {
   const submitHandler = async (data) => {
     console.log("Submitting task data:", data);
 
-    // Handle file uploads
     for (const file of assets) {
       setUploading(true);
       try {
@@ -137,110 +137,125 @@ const Addd = ({ task }) => {
   };
 
   return (
-    <div className="flex justify-center mt-8 bg-gray-100 min-h-screen">
-      <div className="bg-white shadow-lg rounded-2xl p-9 w-full ">
-        <h2 className="text-2xl font-bold text-center text-green-900 mb-8">
-          {task ? "Edit Task" : "Create Project"}
-        </h2>
-        <form
-          className="grid grid-cols-1 md:grid-cols-2 gap-6"
-          onSubmit={handleSubmit(submitHandler)}
-        >
-          <div className="w-full">
-            <label className="block text-gray-700 font-semibold mb-2">
-              Project Title
-            </label>
-            <input
-              placeholder="Project Title"
-              type="text"
-              name="title"
-              className="w-full rounded-lg border border-gray-300 p-2.5 focus:ring focus:ring-green-300"
-              {...register("title", { required: "Title is required" })}
-            />
-            {errors.title && (
-              <p className="text-red-500 text-sm">{errors.title.message}</p>
-            )}
+    <div className="flex justify-center mt-4 bg-gray-100">
+      <div className="bg-white shadow-lg rounded-2xl p-9 w-full grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="flex flex-col items-center justify-start mt-16">
+          <h2 className="text-2xl font-bold text-center text-green-900 mb-2">
+            {task ? "Edit Task" : "Create Project"}
+          </h2>
+          <p className="text-center text-gray-600 mb-8 mt-6">
+            {task
+              ? "Make changes to your existing project details."
+              : "Provide details to create a new project and assign it to a team."}
+          </p>
+          <div className="mt-28">
+            <img src={img} className="mb-8" style={{ maxWidth: "400px" }} />
           </div>
-          <div className="w-full">
-            <UserList setTeam={setTeam} team={team} />
-          </div>
-
-          <div className="w-full">
-            <SelectList
-              label="Priority Level"
-              lists={PRIORITY}
-              selected={priority}
-              setSelected={setPriority}
-            />
-          </div>
-          <div className="w-full">
-            <SelectList
-              label="Project Status"
-              lists={LISTS}
-              selected={stage}
-              setSelected={setStage}
-            />
-          </div>
-
-          <div className="w-full">
-            <label className="block text-gray-700 font-semibold mb-2">
-              Start Date
-            </label>
-            <Textbox
-              placeholder="Start Date"
-              type="date"
-              name="startDate"
-              {...register("startDate", {
-                required: "Start date is required!",
-              })}
-            />
-            {errors.startDate && (
-              <p className="text-red-500 text-sm">{errors.startDate.message}</p>
-            )}
-          </div>
-          <div className="w-full">
-            <label className="block text-gray-700 font-semibold mb-2">
-              End Date
-            </label>
-            <Textbox
-              placeholder="End Date"
-              type="date"
-              name="endDate"
-              {...register("endDate", { required: "End date is required!" })}
-            />
-            {errors.endDate && (
-              <p className="text-red-500 text-sm">{errors.endDate.message}</p>
-            )}
-          </div>
-          <div className="col-span-2 mt-4">
-            <label
-              className="flex items-center gap-2 text-green-500 hover:text-green-700 cursor-pointer"
-              htmlFor="imgUpload"
-            >
-              <BiImages size={24} />
-              <span className="font-semibold">Add Assets</span>
+        </div>
+        <div>
+          <form
+            className="mt-8 border p-8  shadow-md rounded-2xl "
+            onSubmit={handleSubmit(submitHandler)}
+          >
+            <div className="w-full mb-4">
+              <label className="block text-gray-700 font-semibold mb-2">
+                Project Title
+              </label>
               <input
-                type="file"
-                className="hidden"
-                id="imgUpload"
-                onChange={handleSelect}
-                accept=".jpg, .png, .jpeg"
-                multiple={true}
+                placeholder="Project Title"
+                type="text"
+                name="title"
+                className="w-full rounded-2xl border border-green-400 p-2.5 focus:ring focus:ring-green-300"
+                {...register("title", { required: "Title is required" })}
               />
-            </label>
-          </div>
-          <div className="col-span-2 flex justify-end mt-4">
-            {uploading ? (
-              <span className="text-red-500">Uploading assets...</span>
-            ) : (
-              <Button
-                label="Submit"
-                type="submit"
-                className="px-6 py-3 bg-green-600 text-white font-bold rounded-full hover:bg-green-700 transition"
+              {errors.title && (
+                <p className="text-red-500 text-sm">{errors.title.message}</p>
+              )}
+            </div>
+            <div className="w-full mb-4">
+              <label className="block text-gray-700 font-semibold mb-2">
+                Start Date
+              </label>
+              <Textbox
+                placeholder="Start Date"
+                type="date"
+                name="startDate"
+                className="w-full rounded-2xl border border-green-400 p-2.5 focus:ring focus:ring-green-300"
+                {...register("startDate", {
+                  required: "Start date is required!",
+                })}
               />
-            )}
-          </div>
-        </form>
+              {errors.startDate && (
+                <p className="text-red-500 text-sm">
+                  {errors.startDate.message}
+                </p>
+              )}
+            </div>
+            <div className="w-full mb-4">
+              <label className="block text-gray-700 font-semibold mb-2">
+                End Date
+              </label>
+              <Textbox
+                placeholder="End Date"
+                type="date"
+                name="endDate"
+                className="w-full rounded-2xl border border-green-400 p-2.5 focus:ring focus:ring-green-300"
+                {...register("endDate", { required: "End date is required!" })}
+              />
+              {errors.endDate && (
+                <p className="text-red-500 text-sm">{errors.endDate.message}</p>
+              )}
+            </div>
+            <div className="w-full mb-4">
+              <UserList setTeam={setTeam} team={team} />
+            </div>
+            <div className="w-full mb-4">
+              <SelectList
+                label="Priority Level"
+                lists={PRIORITY}
+                selected={priority}
+                setSelected={setPriority}
+              />
+            </div>
+            <div className="w-full mb-4">
+              <SelectList
+                label="Project Status"
+                lists={LISTS}
+                selected={stage}
+                setSelected={setStage}
+              />
+            </div>
+
+            <div className="w-full mb-4">
+              <label
+                className="flex items-center gap-2 text-green-500 hover:text-green-700 cursor-pointer"
+                htmlFor="imgUpload"
+              >
+                <BiImages size={24} />
+                <span className="font-semibold">Add Assets</span>
+                <input
+                  type="file"
+                  className="hidden"
+                  id="imgUpload"
+                  onChange={handleSelect}
+                  accept=".jpg, .png, .jpeg"
+                  multiple={true}
+                />
+              </label>
+            </div>
+            <div className="w-full flex justify-end mt-4">
+              {uploading ? (
+                <span className="text-red-500">Uploading assets...</span>
+              ) : (
+                <Button
+                  label="Submit"
+                  type="submit"
+                  className="px-6 py-3 bg-green-600 text-white font-bold rounded-2xl hover:bg-green-700 transition"
+                />
+              )}
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );

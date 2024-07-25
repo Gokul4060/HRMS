@@ -32,61 +32,64 @@ const TaskCard = ({ task }) => {
 
   return (
     <>
-      <div className="w-full h-fit bg-white shadow-lg p-4 rounded-2xl">
-        <div className="w-full flex justify-between">
+      <div className="w-full h-fit bg-white shadow-lg p-6 rounded-xl">
+        <div className="flex justify-between mb-4">
           <div
             className={clsx(
-              "flex flex-1 gap-1 items-center text-sm font-medium",
+              "flex items-center text-sm font-semibold",
               PRIOTITYSTYELS[task?.priority]
             )}
           >
-            <span className="text-lg">{ICONS[task?.priority]}</span>
-            <span className="uppercase">{task?.priority} Priority</span>
+            <span className="text-2xl">{ICONS[task?.priority]}</span>
+            <span className="ml-2 uppercase">{task?.priority} Priority</span>
           </div>
 
           {user?.isAdmin && <TaskDialog task={task} />}
         </div>
 
-        <div className="flex items-center gap-2">
-          <div
-            className={clsx("w-4 h-4 rounded-full", TASK_TYPE[task.stage])}
-          />
-          <h4 className="line-clamp-1 text-black">{task?.title}</h4>
+        <div className="mb-4">
+          <div className="flex items-center gap-2">
+            <div
+              className={clsx("w-4 h-4 rounded-full", TASK_TYPE[task.stage])}
+            />
+            <h4 className="text-lg font-semibold line-clamp-1 text-black">
+              {task?.title}
+            </h4>
+          </div>
+          <div className="mt-2">
+            <span className="text-sm text-gray-600">
+              Start Date: {formatDate(new Date(task?.startDate))}
+            </span>
+            <span className="ml-4 text-sm text-gray-600">
+              End Date: {formatDate(new Date(task?.endDate))}
+            </span>
+          </div>
         </div>
 
-        {/* Added columns for Start Date, End Date, and Tag */}
-        <div className="flex flex-col-2 mt-2">
-          <span className="text-sm text-gray-600">
-            Start Date: {formatDate(new Date(task?.startDate))}
-          </span>
-          <span className="text-sm text-gray-600">
-            End Date: {formatDate(new Date(task?.endDate))}
-          </span>
-        </div>
+        <div className="w-full border-t border-gray-200 my-4" />
 
-        <div className="w-full border-t border-gray-200 my-2" />
-        <div className="flex items-center justify-between mb-2">
+        <div className="flex justify-between mb-4">
           <div className="flex items-center gap-3">
-            <div className="flex gap-1 items-center text-sm text-gray-600">
-              <BiMessageAltDetail />
+            <div className="flex items-center text-sm text-gray-600">
+              <BiMessageAltDetail className="mr-1" />
               <span>{task?.activities?.length}</span>
             </div>
-            <div className="flex gap-1 items-center text-sm text-gray-600 ">
-              <MdAttachFile />
+            <div className="flex items-center text-sm text-gray-600">
+              <MdAttachFile className="mr-1" />
               <span>{task?.assets?.length}</span>
             </div>
-            <div className="flex gap-1 items-center text-sm text-gray-600 ">
-              <FaList />
+            <div className="flex items-center text-sm text-gray-600">
+              <FaList className="mr-1" />
               <span>0/{task?.subTasks?.length}</span>
             </div>
           </div>
 
-          <div className="flex flex-row-reverse">
+          <div className="flex -space-x-2">
             {task?.team?.map((m, index) => (
               <div
                 key={index}
                 className={clsx(
-                  "w-7 h-7 rounded-full text-white flex items-center justify-center text-sm -mr-1",
+                  "w-8 h-8 rounded-full text-white flex items-center justify-center text-sm",
                   BGS[index % BGS?.length]
                 )}
               >
@@ -99,23 +102,16 @@ const TaskCard = ({ task }) => {
         {task?.subTasks?.length > 0 ? (
           <div className="py-4 border-t border-gray-200">
             {task.subTasks.map((subtask, index) => (
-              <div key={index} className="py-2">
-                <h5 className="text-base text-black">{subtask.title}</h5>
-                <div className="flex flex-col-2 gap-4 py-2">
-                  <div className="flex items-center gap-2 text-sm text-gray-600">
-                    <span className="font-medium">Start:</span>
-                    <span>{formatDate(new Date(subtask.startDate))}</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-sm text-gray-600">
-                    <span className="font-medium">End:</span>
-                    <span>{formatDate(new Date(subtask.endDate))}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="bg-green-600/10 px-3 py-1 rounded-full text-green-700 font-medium">
-                      {subtask.tag}
-                    </span>
-                  </div>
-                </div>
+              <div
+                key={index}
+                className="py-2 flex justify-between items-center"
+              >
+                <h5 className="text-base font-semibold text-black">
+                  {subtask.title}
+                </h5>
+                <span className="bg-green-600/10 px-3 py-1 rounded-full text-green-700 font-medium">
+                  {subtask.tag}
+                </span>
               </div>
             ))}
           </div>
@@ -125,11 +121,11 @@ const TaskCard = ({ task }) => {
           </div>
         )}
 
-        <div className="w-full pb-2">
+        <div className="w-full mt-4">
           <button
             onClick={handleCreateTask}
             disabled={!user.isAdmin}
-            className="w-full flex gap-4 items-center text-sm text-gray-500 font-semibold disabled:cursor-not-allowed disabled:text-gray-300"
+            className="w-full flex gap-2 items-center text-sm text-gray-600 font-semibold hover:text-gray-800 disabled:cursor-not-allowed disabled:text-gray-300"
           >
             <IoMdAdd className="text-lg" />
             <span>ADD TASK</span>
