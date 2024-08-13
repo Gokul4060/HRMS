@@ -29,6 +29,8 @@ import DeletedRecords from "./pages/DeletedRecords";
 import Tab1 from "./components/project/SubTabs/Tab1";
 import Tab2 from "./components/project/SubTabs/Tab2";
 import Attendance from "./pages/Attendance";
+import Project from "./pages/Project";
+import CreateProject from "./components/project/createProject";
 
 
 function Layout() {
@@ -124,6 +126,7 @@ function App() {
           <Route path="/in-progress/:status" element={<Tasks />} />
           <Route path="/todo/:status" element={<Tasks />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/tasks/:projectName" element={<Tasks />} />
           <Route path="/task" element={<Tasks />} />
           <Route path="/addProject" element={<AddProject />} />
           <Route path="/addTask" element={<AddTask />} />
@@ -132,6 +135,8 @@ function App() {
           <Route path="/demo" element={<Demo />} />
           <Route path="/tab1" element={<Tab1 />} />
           <Route path="/attendance" element={<Attendance />} />
+          <Route path="/project" element={<Project />} />
+          <Route path="/create-project" element={<CreateProject />} />
 
           <Route path="/tab2" element={<Tab2 />} />
 
