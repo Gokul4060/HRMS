@@ -29,7 +29,7 @@ import DeletedRecords from "./pages/DeletedRecords";
 import Tab1 from "./components/project/SubTabs/Tab1";
 import Tab2 from "./components/project/SubTabs/Tab2";
 import Attendance from "./pages/Attendance";
-import Project from "./pages/Project";
+import Project from "./pages/project";
 import CreateProject from "./components/project/createProject";
 
 

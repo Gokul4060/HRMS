@@ -31,10 +31,9 @@ const adminLinks = [
     icon: <FaUserAlt />,
   },
 
-
   {
     label: "Project",
-    link: "task",
+    link: "project",
     icon: <FaDeezer />,
   },
 
