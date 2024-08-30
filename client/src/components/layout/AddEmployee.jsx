@@ -1,9 +1,9 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import Textbox from "../Tools/Textbox";
-import Loading from "../Tools/Loader";
-import Button from "../Tools/Button";
+import Textbox from "../../components/Tools/Textbox";
+import Loading from "../../components/Tools/Loader";
+import Button from "../../components/Tools/Button";
 import { toast } from "sonner";
 import { useRegisterMutation } from "../../redux/slices/api/authApiSlice";
 import { useUpdateUserMutation } from "../../redux/slices/api/userApiSlice";
@@ -50,9 +50,9 @@ const AddEmployee = ({ userData }) => {
           as="h2"
           className="text-base font-bold leading-6 text-gray-900 mb-4"
         >
-          {userData ? "UPDATE PROFILE" : "Add New Employee"}
+          {userData ? "UPDATE PROFILE" : "Create new Account"}
         </div>
-        <div className="mt-2 grid gap-6 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2">
+        <div className="mt-2 grid gap-6 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 bg-white p-8 rounded">
           <Textbox
             placeholder="Full name"
             type="text"
@@ -119,7 +119,7 @@ const AddEmployee = ({ userData }) => {
           <div className="py-3 mt-4 text-center sm:flex sm:flex-row-reverse">
             <Button
               type="submit"
-              className="bg-customplam px-8 text-sm font-semibold text-white hover:bg-green-700 sm:w-auto rounded-2xl"
+              className="bg-customplam px-8 text-sm font-semibold text-white  hover:bg-green-700 sm:w-auto rounded-2xl"
               label={userData ? "Update" : "Add"}
             />
           </div>
