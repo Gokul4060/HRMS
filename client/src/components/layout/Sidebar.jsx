@@ -94,7 +94,7 @@ const managerLinks = [
   },
   {
     label: "Attendance-Record",
-    link: "attendance-record",
+    link: "attendanceRecords",
     icon: <FaCalendarAlt />,
   },
   {

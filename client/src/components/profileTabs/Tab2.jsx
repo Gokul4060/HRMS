@@ -3,7 +3,7 @@ import Textbox from "../Tools/Textbox";
 import { useSelector } from "react-redux";
 import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
 
-const Tab2 = ({ control, register, errors, nextTab, prevTab, setValue }) => {
+const Tab2 = ({ control, register, errors,  setValue }) => {
   const { profile } = useSelector((state) => state.profile);
 
   useEffect(() => {
@@ -126,14 +126,7 @@ const Tab2 = ({ control, register, errors, nextTab, prevTab, setValue }) => {
           error={errors.workInformation?.totalExperience?.message || ""}
         />
       </div>
-      <div className="flex justify-end mt-4 gap-2">
-        <span className="bg-green-500 px-4 py-2 text-sm font-semibold text-white hover:bg-green-700 rounded-2xl">
-          <FaArrowLeft onClick={prevTab} />
-        </span>
-        <span className="bg-green-500 px-4 py-2 text-sm font-semibold text-white hover:bg-green-700 rounded-2xl">
-          <FaArrowRight onClick={nextTab} />
-        </span>
-      </div>
+     
     </div>
   );
 };

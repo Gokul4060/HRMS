@@ -62,11 +62,7 @@ const Tab6 = ({ control, register, errors, prevTab, setValue }) => {
           error={errors.identityInformation?.aadhar?.message || ""}
         />
       </div>
-      <div className="flex justify-end mt-4 gap-2">
-        <span className="bg-green-500 px-4 py-2 text-sm font-semibold text-white hover:bg-green-700 rounded-2xl">
-          <FaArrowLeft onClick={prevTab} />
-        </span>
-      </div>
+
     </div>
   );
 };

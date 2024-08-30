@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import Textbox from "../Tools/Textbox";
 import { FaArrowRight } from "react-icons/fa6";
 
-const Tab1 = ({ control, register, errors, nextTab, setValue }) => {
+const Tab1 = ({ control, register, errors,  setValue }) => {
   const { profile } = useSelector((state) => state.profile);
 
   useEffect(() => {
@@ -23,27 +23,28 @@ const Tab1 = ({ control, register, errors, nextTab, setValue }) => {
   }, [profile, setValue]);
 
   return (
-    <div className="bg-white px-4 pt-8 pb-10 rounded-2xl">
-      <h1>Personal Information</h1>
-      <div className="mt-4 grid gap-6 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2">
+    <div className="bg-white from-white to-gray-100 px-6 pt-10 pb-12 rounded-3xl ">
+      <h1 className="text-2xl font-bold text-gray-700 mb-6">
+        Personal Information
+      </h1>
+      <div className="grid gap-6 sm:grid-cols-2">
         <Textbox
           placeholder="Enter"
           type="text"
           name="personalInformation.maritalStatus"
           label="Marital Status"
-          className="w-full rounded-2xl"
+          className="w-full rounded-lg border border-gray-300 shadow-sm focus:ring-green-500"
           register={register("personalInformation.maritalStatus", {
             required: "Marital Status is required!",
           })}
           error={errors.personalInformation?.maritalStatus?.message || ""}
         />
-
         <Textbox
           placeholder="Enter Age"
           type="text"
           name="personalInformation.age"
           label="Age"
-          className="w-full rounded-2xl"
+          className="w-full rounded-lg border border-gray-300 shadow-sm focus:ring-green-500"
           register={register("personalInformation.age", {
             required: "Age is required!",
           })}
@@ -54,7 +55,7 @@ const Tab1 = ({ control, register, errors, nextTab, setValue }) => {
           type="text"
           name="personalInformation.bloodGroup"
           label="Blood Group"
-          className="w-full rounded-2xl"
+          className="w-full rounded-lg border border-gray-300 shadow-sm focus:ring-green-500"
           register={register("personalInformation.bloodGroup", {
             required: "Blood Group is required!",
           })}
@@ -65,30 +66,25 @@ const Tab1 = ({ control, register, errors, nextTab, setValue }) => {
           type="text"
           name="personalInformation.aboutMe"
           label="About Me"
-          className="w-full rounded-2xl"
+          className="w-full rounded-lg border border-gray-300 shadow-sm focus:ring-green-500"
           register={register("personalInformation.aboutMe", {
             required: "About Me is required!",
           })}
           error={errors.personalInformation?.aboutMe?.message || ""}
         />
-
         <Textbox
           placeholder="....."
           type="text"
           name="personalInformation.expertise"
           label="Expertise"
-          className="w-full rounded-2xl"
+          className="w-full rounded-lg border border-gray-300 shadow-sm focus:ring-green-500"
           register={register("personalInformation.expertise", {
             required: "Expertise is required!",
           })}
           error={errors.personalInformation?.expertise?.message || ""}
         />
       </div>
-      <div className="flex justify-end mt-4">
-        <span className="bg-geen-500 px-4 py-2 text-sm font-semibold text-white hover:bg-green-700 rounded-2xl">
-          <FaArrowRight onClick={nextTab} />
-        </span>
-      </div>
+     
     </div>
   );
 };

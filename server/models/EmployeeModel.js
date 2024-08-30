@@ -17,7 +17,6 @@ const WorkInformationSchema = new Schema(
 
 const PersonalInformationSchema = new Schema(
   {
-   
     age: { type: Number, required: true },
     bloodGroup: { type: String, required: true },
     maritalStatus: { type: String, required: true },
@@ -66,6 +65,19 @@ const IdentityInformationSchema = new Schema(
   { _id: false }
 );
 
+const ExitInformationSchema = new Schema(
+  {
+    resignationLetterDate: { type: String, required: true },
+    exitInterviewDate: { type: String, required: true },
+    relievingDate: { type: String, required: true },
+    leaveEncashed: { type: String, required: true },
+    newWorkplace: { type: String, required: true },
+    reasonForLeaving: { type: String, required: true },
+    feedback: { type: String, required: true },
+  },
+  { _id: false }
+);
+
 const EmployeeSchema = new Schema(
   {
     name: { type: String, required: true },
@@ -79,6 +91,7 @@ const EmployeeSchema = new Schema(
     bankInformation: { type: BankInformationSchema, default: "" },
     hierarchyInformation: { type: HierarchyInformationSchema, default: "" },
     identityInformation: { type: IdentityInformationSchema, default: "" },
+    exitInformation: { type: ExitInformationSchema, default: "" },
     userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
@@ -90,7 +103,4 @@ const EmployeeSchema = new Schema(
 
 const Employee = mongoose.model("Employee", EmployeeSchema);
 
-
 export default Employee;
-
-

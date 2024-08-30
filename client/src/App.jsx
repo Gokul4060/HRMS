@@ -30,6 +30,7 @@ import DeletedRecords from "./pages/DeletedRecords";
 import Tab1 from "./components/project/SubTabs/Tab1";
 import Tab2 from "./components/project/SubTabs/Tab2";
 import Attendance from "./pages/Attendance";
+import AttendanceRecords from "./pages/Manager/AttendanceRecords";
 import Project from "./pages/project";
 import CreateProject from "./components/project/createProject";
 
@@ -138,6 +139,7 @@ function App() {
           <Route path="/attendance" element={<Attendance />} />
           <Route path="/project" element={<Project />} />
           <Route path="/create-project" element={<CreateProject />} />
+          <Route path="/attendanceRecords" element={<AttendanceRecords />} />
 
           <Route path="/tab2" element={<Tab2 />} />
 

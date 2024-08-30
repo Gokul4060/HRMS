@@ -7,12 +7,13 @@ import Tab3 from "../profileTabs/Tab3";
 import Tab4 from "../profileTabs/Tab4";
 import Tab5 from "../profileTabs/Tab5";
 import Tab6 from "../profileTabs/Tab6";
+import Tab7 from "../profileTabs/Tab7";
 
 export default function Tabs({ control, register, errors, setValue }) {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   const nextTab = () => {
-    setSelectedIndex((prevIndex) => Math.min(prevIndex + 1, 5));
+    setSelectedIndex((prevIndex) => Math.min(prevIndex + 1, 6));
   };
 
   const prevTab = () => {
@@ -22,21 +23,27 @@ export default function Tabs({ control, register, errors, setValue }) {
   return (
     <TabGroup selectedIndex={selectedIndex} onChange={setSelectedIndex}>
       <TabList className="bg-gray-100 rounded-2xl w-full space-x-5">
-        {["Personal", "Work", "Contact", "Bank", "Hierarchy", "Identity"].map(
-          (tabName, index) => (
-            <Tab key={index} as={Fragment}>
-              {({ selected }) => (
-                <button
-                  className={clsx(
-                    selected && "bg-green-600 text-white rounded-3xl p-2"
-                  )}
-                >
-                  {tabName}
-                </button>
-              )}
-            </Tab>
-          )
-        )}
+        {[
+          "Personal",
+          "Work",
+          "Contact",
+          "Bank",
+          "Hierarchy",
+          "Identity",
+          "Resignation",
+        ].map((tabName, index) => (
+          <Tab key={index} as={Fragment}>
+            {({ selected }) => (
+              <button
+                className={clsx(
+                  selected && "bg-green-600 text-white rounded-3xl p-2"
+                )}
+              >
+                {tabName}
+              </button>
+            )}
+          </Tab>
+        ))}
       </TabList>
       <TabPanels>
         <TabPanel>
@@ -44,7 +51,7 @@ export default function Tabs({ control, register, errors, setValue }) {
             control={control}
             register={register}
             errors={errors}
-            nextTab={nextTab}
+
             setValue={setValue}
           />
         </TabPanel>
@@ -53,8 +60,7 @@ export default function Tabs({ control, register, errors, setValue }) {
             control={control}
             register={register}
             errors={errors}
-            nextTab={nextTab}
-            prevTab={prevTab}
+            
             setValue={setValue}
           />
         </TabPanel>
@@ -63,8 +69,7 @@ export default function Tabs({ control, register, errors, setValue }) {
             control={control}
             register={register}
             errors={errors}
-            nextTab={nextTab}
-            prevTab={prevTab}
+            
             setValue={setValue}
           />
         </TabPanel>
@@ -73,8 +78,7 @@ export default function Tabs({ control, register, errors, setValue }) {
             control={control}
             register={register}
             errors={errors}
-            nextTab={nextTab}
-            prevTab={prevTab}
+            
             setValue={setValue}
           />
         </TabPanel>
@@ -83,8 +87,7 @@ export default function Tabs({ control, register, errors, setValue }) {
             control={control}
             register={register}
             errors={errors}
-            nextTab={nextTab}
-            prevTab={prevTab}
+          
             setValue={setValue}
           />
         </TabPanel>
@@ -93,7 +96,16 @@ export default function Tabs({ control, register, errors, setValue }) {
             control={control}
             register={register}
             errors={errors}
-            prevTab={prevTab}
+            
+            setValue={setValue}
+          />
+        </TabPanel>
+        <TabPanel>
+          <Tab7
+            control={control}
+            register={register}
+            errors={errors}
+           
             setValue={setValue}
           />
         </TabPanel>

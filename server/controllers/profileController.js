@@ -1,8 +1,5 @@
 import Employee from "../models/EmployeeModel.js";
 
-
-
-
 export const createEmployee = async (req, res) => {
   try {
     const { userId } = req.user;
@@ -17,17 +14,15 @@ export const createEmployee = async (req, res) => {
       contactDetails,
       bankInformation,
       hierarchyInformation,
-      identityInformation
+      identityInformation,
+      exitInformation, // Add exitInformation here
     } = req.body;
 
     if (!name || !gender || !dateOfBirth || !nationality || !email) {
       return res.status(400).json({ message: "Missing required fields" });
     }
 
-
-
     const newEmployee = new Employee({
-      userId,
       name,
       gender,
       dateOfBirth,
@@ -39,6 +34,8 @@ export const createEmployee = async (req, res) => {
       bankInformation,
       hierarchyInformation,
       identityInformation,
+      exitInformation, // Include exitInformation here
+      userId,
     });
 
     const savedEmployee = await newEmployee.save();
@@ -47,8 +44,6 @@ export const createEmployee = async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 };
-
-
 
 export const fetchEmployee = async (req, res) => {
   try {
@@ -66,7 +61,6 @@ export const fetchEmployee = async (req, res) => {
   }
 };
 
-
 export const updateEmployee = async (req, res) => {
   try {
     const { userId } = req.user;
@@ -82,6 +76,7 @@ export const updateEmployee = async (req, res) => {
       bankInformation,
       hierarchyInformation,
       identityInformation,
+      exitInformation, // Add exitInformation here
     } = req.body;
 
     if (!name || !gender || !dateOfBirth || !nationality || !email) {
@@ -102,6 +97,7 @@ export const updateEmployee = async (req, res) => {
         bankInformation,
         hierarchyInformation,
         identityInformation,
+        exitInformation, // Include exitInformation here
       },
       { new: true }
     );
@@ -115,4 +111,3 @@ export const updateEmployee = async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 };
-

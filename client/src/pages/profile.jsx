@@ -9,7 +9,7 @@ import {
 import Textbox from "../components/Tools/Textbox";
 import Button from "../components/Tools/Button";
 import Tabs from "../components/layout/Tab";
-import Profile from "../assets/pexel.jpg";
+import Profile from "../assets/goku.jpg";
 import Loading from "../components/Tools/Loader";
 import { toast } from "sonner";
 import { saveProfile, setProfile } from "../redux/slices/profileSlice";
@@ -109,9 +109,9 @@ const ProfilePage = () => {
   }
 
   return (
-    <div className="w-full md:px-4 px-2 mb-6 p-5">
+    <div className="w-full md:px-4 px-2 mb-6 p-5 -mt-5">
       <form onSubmit={handleSubmit(handleOnSubmit)} className="space-y-8">
-        <div className="bg-white rounded-2xl shadow-lg p-6">
+        <div className="bg-white rounded shadow-lg p-6 ">
           <div className="flex flex-col md:flex-row gap-6">
             <div className="flex flex-col items-center w-full md:w-1/3 bg-gray-100 p-6 rounded-2xl">
               <div
@@ -151,7 +151,7 @@ const ProfilePage = () => {
                 </ul>
               </div>
             </div>
-            <div className="w-full md:w-2/3">
+            <div className="w-full md:w-2/3 mt-4">
               <h1 className="text-2xl font-bold mb-4">Basic Information</h1>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <Textbox
@@ -209,27 +209,28 @@ const ProfilePage = () => {
               </div>
             </div>
           </div>
-        </div>
-        <div className="bg-white rounded-2xl shadow-lg p-6 ">
-          <Tabs
-            control={control}
-            register={register}
-            errors={errors}
-            setValue={setValue}
-          />
-          {isSubmitting || isUpdating ? (
-            <div className="flex justify-center py-5">
-              <Loading />
-            </div>
-          ) : (
-            <div className="flex justify-end mt-4">
-              <Button
-                type="submit"
-                className="bg-blue-600 text-white py-2 px-6 rounded-2xl hover:bg-blue-700 transition duration-300"
-                label="Submit"
-              />
-            </div>
-          )}
+
+          <div className="bg-white rounded-2xl  p-6 mt-5 ">
+            <Tabs
+              control={control}
+              register={register}
+              errors={errors}
+              setValue={setValue}
+            />
+            {isSubmitting || isUpdating ? (
+              <div className="flex justify-center py-5">
+                <Loading />
+              </div>
+            ) : (
+              <div className="flex justify-end mt-4">
+                <Button
+                  type="submit"
+                  className="bg-green-600 text-white py-2 px-6 rounded-2xl hover:bg-green-700 transition duration-300"
+                  label="Submit"
+                />
+              </div>
+            )}
+          </div>
         </div>
       </form>
     </div>
