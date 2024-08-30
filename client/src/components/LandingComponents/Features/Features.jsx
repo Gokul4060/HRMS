@@ -107,41 +107,40 @@ const Features = () => {
     ]
 
     return (
-        <section className="py-14">
-            <div className="max-w-screen-2xl mx-auto px-4 text-gray-600 md:px-8">
-                <div className="max-w-xl space-y-3">
-                    <h3 className="text-indigo-600 font-semibold">
-                        Features
-                    </h3>
-                    <p className="text-gray-800 text-3xl font-semibold sm:text-4xl">
-                        HRMS Software.
-                    </p>
-                    {/*<p>
+      <section className="py-14">
+        <div className="max-w-screen-2xl mx-auto px-4 text-gray-600 md:px-8">
+          <div className="max-w-xl space-y-3">
+            <h3 className="text-customplam font-semibold">Features</h3>
+            <p className="text-gray-800 text-3xl font-semibold sm:text-4xl">
+              HRMS Software.
+            </p>
+            {/*<p>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec congue, nisl eget molestie varius
     </p> */}
-                </div>
-                <div className="relative mt-12">
-                    <ul className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-                        {
-                            features.map((item, idx) => (
-                                <li key={idx}data-aos="zoom-in-right" className="bg-white space-y-3 p-4 border border-gray-800 rounded-lg ">
-                                    <div className="text-indigo-600 pb-3">
-                                        {item.icon}
-                                    </div>
-                                    <h4  data-aos="zoom-in-left" className="text-lg text-gray-800 font-semibold">
-                                        {item.title}
-                                    </h4>
-                                    <p>
-                                        {item.desc}
-                                    </p>
-                                </li>
-                            ))
-                        }
-                    </ul>
-                </div>
-            </div>
-        </section>
-    )
+          </div>
+          <div className="relative mt-12">
+            <ul className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+              {features.map((item, idx) => (
+                <li
+                  key={idx}
+                  data-aos="zoom-in-right"
+                  className="bg-white space-y-3 p-4 border border-gray-800 rounded-lg "
+                >
+                  <div className="text-customplam pb-3">{item.icon}</div>
+                  <h4
+                    data-aos="zoom-in-left"
+                    className="text-lg text-gray-800 font-semibold"
+                  >
+                    {item.title}
+                  </h4>
+                  <p>{item.desc}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+    );
 }
 
 export default Features

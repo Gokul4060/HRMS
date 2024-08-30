@@ -45,85 +45,89 @@ const Contact = () => {
     ]
 
     return (
-        <main className="py-14">
-            <div className="max-w-screen-2xl mx-auto px-4 text-gray-600 md:px-8">
-                <div className="max-w-lg mx-auto gap-12 justify-between lg:flex lg:max-w-none">
-                    <div className="max-w-lg space-y-3">
-                        <h3 data-aos="zoom-in-right" className="text-indigo-600 font-semibold">
-                            Contact
-                        </h3>
-                        <p data-aos="zoom-in-left"className="text-gray-800 text-3xl font-semibold sm:text-4xl">
-                            Let us know how we can help
-                        </p>
-                        <p className='text-gray-800'>
-                            We’re here to help and answer any question you might have, We look forward to hearing from you! Please fill out the form, or us the contact information bellow .
-                        </p>
-                        <div>
-                            <ul  className="mt-6 flex flex-wrap gap-x-10 gap-y-6 items-center">
-                                {
-                                    contactMethods.map((item, idx) => (
-                                        <li key={idx} className="flex items-center gap-x-3">
-                                            <div data-aos="zoom-in-right" className="flex-none text-indigo-600">
-                                                {item.icon}
-                                            </div>
-                                            <p className='text-gray-800'>{item.contact}</p>
-                                        </li>
-                                    ))
-                                }
-                            </ul>
-                        </div>
-                    </div>
-                    <div data-aos="zoom-in-right" className="flex-1 mt-12 sm:max-w-lg lg:max-w-md">
-                        <form
-                            onSubmit={(e) => e.preventDefault()}
-                            className="space-y-5"
-                        >
-                            <div>
-                                <label className="font-medium  text-gray-800">
-                                    Full name
-                                </label>
-                                <input
-                                    type="text"
-                                    required
-                                    className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border border-gray-800 focus:border-indigo-600 shadow-sm rounded-lg"
-                                />
-                            </div>
-                            <div>
-                                <label className="font-medium text-gray-800">
-                                    Email
-                                </label>
-                                <input
-                                    type="email"
-                                    required
-                                    className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border border-gray-800 focus:border-indigo-600 shadow-sm rounded-lg"
-                                />
-                            </div>
-                            <div>
-                                <label className="font-medium text-gray-800">
-                                    Company
-                                </label>
-                                <input
-                                    type="text"
-                                    required
-                                    className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border border-gray-800 focus:border-indigo-600 shadow-sm rounded-lg"
-                                />
-                            </div>
-                            <div>
-                                <label className="font-medium text-gray-800">
-                                    Message
-                                </label>
-                                <textarea required className="w-full mt-2 h-36 px-3 py-2 resize-none appearance-none bg-transparent outline-none border border-gray-800 focus:border-indigo-600 shadow-sm rounded-lg"></textarea>
-                            </div>
-                            <button
-                                className="w-full px-4 py-2 text-white font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150"
-                            >
-                                Submit
-                            </button>
-                        </form>
-                    </div>
-                </div>
+      <main className="py-14">
+        <div className="max-w-screen-2xl mx-auto px-4 text-gray-600 md:px-8">
+          <div className="max-w-lg mx-auto gap-12 justify-between lg:flex lg:max-w-none">
+            <div className="max-w-lg space-y-3">
+              <h3
+                data-aos="zoom-in-right"
+                className="text-customplam font-semibold"
+              >
+                Contact
+              </h3>
+              <p
+                data-aos="zoom-in-left"
+                className="text-gray-800 text-3xl font-semibold sm:text-4xl"
+              >
+                Let us know how we can help
+              </p>
+              <p className="text-gray-800">
+                We’re here to help and answer any question you might have, We
+                look forward to hearing from you! Please fill out the form, or
+                us the contact information bellow .
+              </p>
+              <div>
+                <ul className="mt-6 flex flex-wrap gap-x-10 gap-y-6 items-center">
+                  {contactMethods.map((item, idx) => (
+                    <li key={idx} className="flex items-center gap-x-3">
+                      <div
+                        data-aos="zoom-in-right"
+                        className="flex-none text-customplam"
+                      >
+                        {item.icon}
+                      </div>
+                      <p className="text-gray-800">{item.contact}</p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
-        </main>
-    )
+            <div
+              data-aos="zoom-in-right"
+              className="flex-1 mt-12 sm:max-w-lg lg:max-w-md"
+            >
+              <form onSubmit={(e) => e.preventDefault()} className="space-y-5">
+                <div>
+                  <label className="font-medium  text-gray-800">
+                    Full name
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border border-gray-800 focus:border-indigo-600 shadow-sm rounded-lg"
+                  />
+                </div>
+                <div>
+                  <label className="font-medium text-gray-800">Email</label>
+                  <input
+                    type="email"
+                    required
+                    className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border border-gray-800 focus:border-indigo-600 shadow-sm rounded-lg"
+                  />
+                </div>
+                <div>
+                  <label className="font-medium text-gray-800">Company</label>
+                  <input
+                    type="text"
+                    required
+                    className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border border-gray-800 focus:border-indigo-600 shadow-sm rounded-lg"
+                  />
+                </div>
+                <div>
+                  <label className="font-medium text-gray-800">Message</label>
+                  <textarea
+                    required
+                    className="w-full mt-2 h-36 px-3 py-2 resize-none appearance-none bg-transparent outline-none border border-gray-800 focus:border-green-600 shadow-sm rounded-lg"
+                  ></textarea>
+                </div>
+                <button className="w-full px-4 py-2 text-white font-medium bg-customplam hover:bg-green-500 active:bg-green-600 rounded-lg duration-150">
+                  Submit
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </main>
+    );
 }
 export default Contact

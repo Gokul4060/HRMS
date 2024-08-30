@@ -31,7 +31,7 @@ const Testimonial = () => {
         <section className="py-14">
             <div className="max-w-screen-2xl mx-auto px-4 md:px-8">
                 <div className="max-w-xl space-y-3">
-                    <h3 data-aos="zoom-in-left" className="text-indigo-600 font-semibold">
+                    <h3 data-aos="zoom-in-left" className="text-customplam font-semibold">
                         Testimonials
                     </h3>
                     <p data-aos="zoom-in-right" className="text-gray-800 text-3xl font-semibold sm:text-4xl">

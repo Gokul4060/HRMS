@@ -9,6 +9,7 @@ import { Toaster } from "sonner";
 import Navbar from "./components/layout/Navbar";
 import Sidebar from "./components/layout/Sidebar";
 import Login from "./pages/Login";
+import Landing from "./pages/Landing";
 import Dashboard from "./pages/dashboard";
 import { setOpenSidebar } from "./redux/slices/authSlice";
 import Allemployee from "./pages/allEmployees";
@@ -55,7 +56,7 @@ function Layout() {
       </div>
     </div>
   ) : (
-    <Navigate to="/log-in" state={{ from: location }} replace />
+    <Navigate to="/landing" state={{ from: location }} replace />
   );
 }
 
@@ -146,6 +147,7 @@ function App() {
         </Route>
 
         <Route path="/log-in" element={<Login />} />
+        <Route path="/landing" element={<Landing />} />
       </Routes>
 
       <Toaster richColors />
