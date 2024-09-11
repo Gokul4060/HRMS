@@ -1,6 +1,6 @@
+// authmiddleware.js
 import jwt from "jsonwebtoken";
 import User from "../models/user.js";
-
 
 const protectRoute = async (req, res, next) => {
   try {
@@ -8,15 +8,16 @@ const protectRoute = async (req, res, next) => {
 
     if (token) {
       const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-
       const resp = await User.findById(decodedToken.userId).select(
-        "isAdmin email role" 
+        "isAdmin isManager isDeveloper email role"
       );
 
       req.user = {
         email: resp.email,
         isAdmin: resp.isAdmin,
-        role: resp.role, 
+        isManager: resp.isManager,
+        isDeveloper: resp.isDeveloper,
+        role: resp.role,
         userId: decodedToken.userId,
       };
 
@@ -34,31 +35,21 @@ const protectRoute = async (req, res, next) => {
   }
 };
 
+export const authenticate = (req, res, next) => {
+  const token = req.headers.authorization?.split(" ")[1]; // Bearer token
 
-
-const protect = async (req, res, next) => {
-  let token;
-
-  if (
-    req.headers.authorization &&
-    req.headers.authorization.startsWith("Bearer")
-  ) {
+  if (token) {
     try {
-      token = req.headers.authorization.split(" ")[1];
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      req.user = await User.findById(decoded.id).select("-password");
+      const decoded = jwt.verify(token, "yourSecretKey"); // Replace 'yourSecretKey' with your actual secret
+      req.userId = decoded.id;
       next();
-    } catch (error) {
-      res.status(401).json({ message: "Not authorized, token failed" });
+    } catch (err) {
+      res.status(401).json({ message: "Unauthorized" });
     }
-  }
-
-  if (!token) {
-    res.status(401).json({ message: "Not authorized, no token" });
+  } else {
+    res.status(401).json({ message: "No token provided" });
   }
 };
-
-
 
 const isAdminRoute = (req, res, next) => {
   if (req.user && req.user.isAdmin) {
@@ -69,9 +60,28 @@ const isAdminRoute = (req, res, next) => {
       message: "Not authorized as admin. Try login as admin.",
     });
   }
-
-
-
 };
 
-export { protectRoute,protect, isAdminRoute,  };
+const isManagerRoute = (req, res, next) => {
+  if (req.user && req.user.isManager) {
+    next();
+  } else {
+    return res.status(401).json({
+      status: false,
+      message: "Not authorized as manager. Try login as manager.",
+    });
+  }
+};
+
+const isDeveloperRoute = (req, res, next) => {
+  if (req.user && req.user.isDeveloper) {
+    next();
+  } else {
+    return res.status(401).json({
+      status: false,
+      message: "Not authorized as developer. Try login as developer.",
+    });
+  }
+};
+
+export { protectRoute, isAdminRoute, isManagerRoute, isDeveloperRoute };

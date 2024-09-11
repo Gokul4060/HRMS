@@ -1,9 +1,9 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import Textbox from "../../components/Tools/Textbox";
-import Loading from "../../components/Tools/Loader";
-import Button from "../../components/Tools/Button";
+import Textbox from "../Tools/Textbox";
+import Loading from "../Tools/Loader";
+import Button from "../Tools/Button";
 import { toast } from "sonner";
 import { useRegisterMutation } from "../../redux/slices/api/authApiSlice";
 import { useUpdateUserMutation } from "../../redux/slices/api/userApiSlice";
@@ -23,33 +23,59 @@ const AddEmployee = ({ userData }) => {
 
   const handleOnSubmit = async (data) => {
     try {
+      // Reset all role fields to false
+      data.isAdmin = false;
+      data.isManager = false;
+      data.isDeveloper = false;
+
+      // Set the correct role field based on the selected role
+      switch (data.role) {
+        case "Admin":
+          data.isAdmin = true;
+          break;
+        case "Manager":
+          data.isManager = true;
+          break;
+        case "Developer":
+          data.isDeveloper = true;
+          break;
+        default:
+          break;
+      }
+
+      // Proceed with either adding a new user or updating an existing user
       if (userData) {
-        const result = await updateUser(data).unwrap();
+        // Update the user profile
+        const result = await updateUser({
+          ...data,
+          _id: userData._id,
+        }).unwrap();
         toast.success("Profile updated successfully");
 
-        if (userData?._id === user._id) {
+        // Update the local user data if updating current user
+        if (userData._id === user._id) {
           dispatch(setCredentials({ ...result.user }));
         }
       } else {
+        // Register a new user
         await addNewUser({ ...data, password: data.password }).unwrap();
         toast.success("New User added successfully");
       }
+
+      // Reload the page and close the form
       window.location.reload();
       setTimeout(() => {
         setOpen(false);
       }, 1500);
     } catch (error) {
-      toast.error("something went wrong");
+      toast.error("Something went wrong");
     }
   };
 
   return (
     <div className="space-y-8 p-6">
       <form onSubmit={handleSubmit(handleOnSubmit)} className="">
-        <div
-          as="h2"
-          className="text-base font-bold leading-6 text-gray-900 mb-4"
-        >
+        <div className="text-base font-bold leading-6 text-gray-900 mb-4">
           {userData ? "UPDATE PROFILE" : "Create new Account"}
         </div>
         <div className="mt-2 grid gap-6 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 bg-white p-8 rounded">
@@ -58,7 +84,7 @@ const AddEmployee = ({ userData }) => {
             type="text"
             name="name"
             label="Full Name"
-            className="w-full rounded-2xl "
+            className="w-full rounded-2xl"
             register={register("name", {
               required: "Full name is required!",
             })}
@@ -69,7 +95,7 @@ const AddEmployee = ({ userData }) => {
             type="text"
             name="title"
             label="Title"
-            className="w-full rounded-2xl "
+            className="w-full rounded-2xl"
             register={register("title", {
               required: "Title is required!",
             })}
@@ -80,23 +106,31 @@ const AddEmployee = ({ userData }) => {
             type="email"
             name="email"
             label="Email id"
-            className="w-full rounded-2xl "
+            className="w-full rounded-2xl"
             register={register("email", {
               required: "Email Address is required!",
             })}
             error={errors.email ? errors.email.message : ""}
           />
-          <Textbox
-            placeholder="Role"
-            type="text"
-            name="role"
-            label="Role"
-            className="w-full rounded-2xl "
-            register={register("role", {
-              required: "User role is required!",
-            })}
-            error={errors.role ? errors.role.message : ""}
-          />
+          {/* Role Selector */}
+          <div className="w-full rounded-2xl">
+            <label className="block text-sm font-medium text-gray-700">
+              Role
+            </label>
+            <select
+              name="role"
+              className="w-full mt-1 block rounded-2xl border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              {...register("role", { required: "User role is required!" })}
+            >
+              <option value="">Select Role</option>
+              <option value="Admin">Admin</option>
+              <option value="Manager">Manager</option>
+              <option value="Developer">Developer</option>
+            </select>
+            {errors.role && (
+              <p className="text-red-500 text-sm mt-1">{errors.role.message}</p>
+            )}
+          </div>
           {!userData && (
             <Textbox
               placeholder="Password"
@@ -119,7 +153,7 @@ const AddEmployee = ({ userData }) => {
           <div className="py-3 mt-4 text-center sm:flex sm:flex-row-reverse">
             <Button
               type="submit"
-              className="bg-customplam px-8 text-sm font-semibold text-white  hover:bg-green-700 sm:w-auto rounded-2xl"
+              className="bg-customplam px-8 text-sm font-semibold text-white bg-green-500 hover:bg-green-700 sm:w-auto rounded-2xl"
               label={userData ? "Update" : "Add"}
             />
           </div>
