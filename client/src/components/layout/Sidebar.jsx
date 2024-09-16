@@ -124,17 +124,27 @@ const Sidebar = () => {
   };
 
   const NavLink = ({ el }) => {
+     const isActive = path === el.link;
     return (
       <Link
         to={el.link}
         onClick={closeSidebar}
         className={clsx(
-          "w-full flex gap-2 px-4 py-3 rounded-full items-center text-gray-800 text-base hover:bg-[#3ea053fe]",
-          path === el.link ? "bg-customplam text-neutral-100" : ""
+          "w-full flex gap-2 px-4 py-3 rounded-full items-center transition duration-300 ease-in-out",
+          isActive
+            ? "bg-gradient-to-r from-green-400 via-green-500 to-green-600 text-white" // Background color for the selected item
+            : "hover:bg-gray-200 hover:text-black"
         )}
       >
         {el.icon}
-        <span className="hover:text-grey-600">{el.label}</span>
+        <span
+          className={clsx(
+            isActive ? "text-white" : "text-gray-600", // Active text color
+            "hover:text-black" // Hover text color
+          )}
+        >
+          {el.label}
+        </span>
       </Link>
     );
   };
